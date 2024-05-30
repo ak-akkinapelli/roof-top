@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Canvas from './components/Canvas';
+import Toolbar from './components/Toolbar';
 
-function App() {
+const backgroundImage = 'src/assets/defaultImage.jpg';
+
+const App: React.FC = () => {
+  const [clearFlag, setClearFlag] = useState(false);
+
+  const handleExport = () => {
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'drawing.png';
+      link.click();
+    }
+  };
+
+  const handleClear = () => {
+    setClearFlag(true);
+    setTimeout(() => setClearFlag(false), 0);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Toolbar
+        onExport={handleExport}
+        onClear={handleClear}
+      />
+      <Canvas
+        backgroundImage={backgroundImage}
+        onClear={clearFlag}
+      />
     </div>
   );
-}
+};
 
 export default App;

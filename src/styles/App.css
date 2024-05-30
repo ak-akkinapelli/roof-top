@@ -1,0 +1,7 @@
+canvas {
+  background-image: no-repeat center center fixed;
+  background-size: cover;
+  width: 600px;
+  height: 600px;
+  border: 10px solid rgb(139, 138, 138);
+}
