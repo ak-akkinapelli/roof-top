@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Canvas from './components/Canvas';
 import Toolbar from './components/Toolbar';
-
-const backgroundImage = 'src/assets/defaultImage.jpg';
+import './styles/App.css';
+// used an external hosting to simplify and for scale
+const backgroundImage = 'https://i.ibb.co/1dFp9Kf/default-Image.webp';
 
 const App: React.FC = () => {
   const [clearFlag, setClearFlag] = useState(false);
@@ -11,8 +12,8 @@ const App: React.FC = () => {
     const canvas = document.querySelector('canvas');
     if (canvas) {
       const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = 'drawing.png';
+      link.href = canvas.toDataURL('image/jpeg');
+      link.download = 'drawing.jpeg';
       link.click();
     }
   };
@@ -23,14 +24,14 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <Toolbar
-        onExport={handleExport}
-        onClear={handleClear}
-      />
+    <div className='container'>
       <Canvas
         backgroundImage={backgroundImage}
         onClear={clearFlag}
+      />
+      <Toolbar
+        onExport={handleExport}
+        onClear={handleClear}
       />
     </div>
   );

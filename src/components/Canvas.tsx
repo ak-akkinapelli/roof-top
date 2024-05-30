@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-
+import '../styles/App.css';
 interface Point {
   x: number;
   y: number;
@@ -26,6 +26,8 @@ const Canvas: React.FC<CanvasProps> = ({ backgroundImage, onClear }) => {
     const context = canvas?.getContext('2d');
     if (context) {
       const image = new Image();
+
+      image.crossOrigin = 'anonymous';
       image.onload = () => {
         context.clearRect(0, 0, canvas?.width ?? 800, canvas?.height ?? 600);
         context.drawImage(image, 0, 0, canvas?.width ?? 800, canvas?.height ?? 600);
@@ -87,6 +89,7 @@ const Canvas: React.FC<CanvasProps> = ({ backgroundImage, onClear }) => {
       context.lineTo(newPoint.x, newPoint.y);
       context.stroke();
       context.strokeStyle = 'white';
+      context.lineWidth = 5;
     }
   };
 
@@ -100,17 +103,17 @@ const Canvas: React.FC<CanvasProps> = ({ backgroundImage, onClear }) => {
   };
 
   return (
-    <>
+    <div>
       <canvas
-        ref={canvasRef}
         width={800}
         height={600}
+        ref={canvasRef}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       ></canvas>
       <p>{isClosed && 'Closed shape found'}</p>
-    </>
+    </div>
   );
 };
 
